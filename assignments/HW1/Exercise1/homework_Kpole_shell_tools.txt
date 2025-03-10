@@ -1,0 +1,49 @@
+Shell tools exercises - Krishna Pole
+Exercise 1 : Custom ls command
+command: ls -laht --color=auto
+output: drwxr-xr-x 2 krishnapole krishnapole 4.0K Mar 10 13:39 .
+  -rw-r--r-- 1 krishnapole krishnapole    0 Mar 10 13:39 homework_Kpole_shell_tools.txt
+Note: -l=long format, -a=all files, -h=human sizes, -t=sort by time, --color=auto=coloruszed-matches spec.
+
+
+Exercise 2: marco and polo functions
+File: marco.sh
+content: marco() {
+      export MARCO=$(pwd)
+  }
+  polo() {
+      cd "$MARCO"
+  }
+
+Commands: source marco.sh; marco; cd/tmp; polo; pwd
+Output: /home/krishnapole/Python/Assignments/python-software-dev-msai/assignments
+Note: marco saves dir in MARCO var; polo cds back dynamic navigation with shell function
+
+Exercise 3: Capture Command Failure
+File: debug.sh
+Content:
+  #!/usr/bin/env bash
+  count=0
+  until [[ "$?" -ne 0 ]]; do
+      count=$((count+1))
+      ./random.sh > out.txt 2> err.txt
+  done
+  echo "Failed after $count runs"
+  echo "STDOUT:"
+  cat out.txt
+  echo "STDERR:"
+  cat err.txt
+Output: Failed after 3 runs; STDOUT: Something went wrong; STDERR: The error was using magic numbers
+Note: Loops until failure, captures streams, counts runs—full debug automation.
+
+
+Exercise 4: Zip HTML Files with xargs
+Command: find test -type f -name "*.html" | xargs -d '\n' tar -cvzf html_files.tar.gz
+Output: test/file 1.html  test/file2.html
+Note: find locates HTML files; xargs -d '\n' passes them space-safely to tar—zips recursively.
+
+
+Exercise 5: Most Recent File (Advanced)
+Command: find . -type f -exec ls -lt {} + | head -n 1
+Output: -rw-r--r-- 1 krishnapole krishnapole 1456 Mar 10 15:02 ./assignments/homework_Kpole_shell_tools.txt
+Note: find lists files; ls -lt sorts by time; head picks latest—recency solved (corrected filename typo).

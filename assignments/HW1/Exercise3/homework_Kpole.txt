@@ -1,0 +1,110 @@
+First Homework - Spring 2025 - Kpole95
+Course Shell Exercises:
+
+Exercise 1: Check Shell
+Output: /bin/bash
+Note: Confirmed Bash on Ubuntu WSL2
+
+Exercise 2: Create Dir
+Command: mkdir/tmp/missing
+Output: (none, dir created)
+Note: Made missing in/tmp for practice.
+
+Exercide 3: Look uo touch
+Command: man touch
+Output: manual page diplayed
+Note: Learned touch create an empty file or uodates their timestamps, man is help tool.
+
+Exercise 4: Create a File
+Command: /tmp/missing/semester
+Output: none, file created
+Note: Created an empty semester file in /tmp/missing with touch
+
+Exercise 5: Write to a File
+Command: echo '#!/bin/sh' > /tmp/missing/semester
+	 echo 'curl --head --silent https://missing.csail.mit.edu' >> /tmp/missing/semester
+Output (cat /tmp/missing/semester):
+	#!bin/sh
+	curl --head --silent https://missing.csail.mit.edu
+Note: Wrote script with shebang and cul, >> appends, single quotes preserve text.
+
+Exercise 6: Try executiing
+Command: ./semester
+	 ls -l semester
+Output:
+  bash: ./semester: Permission denied
+  -rw-r--r-- 1 krishnapole krishnapole 61 feb 27 17:16 semester
+Note: Failed no execute (x) permission, ls -l shows no x.
+
+Exercise 7: RUn with sh
+Command: sh semester
+Output:
+	HTTP/2 200
+	server: GitHub.com
+	content-type: text/html; charset=utf-8
+	last-modified: Sat, 01 Feb 2025 18:13:13 GMT
+	access-control-allow-origin: *
+	etag: "679e6439-205d"
+	expires: Wed, 26 Feb 2025 20:35:00 GMT
+	cache-control: max-age=600
+	x-proxy-cache: MISS
+	x-github-request-id: 21A5:1080A:65956A:6677FF:67BF789C
+	accept-ranges: bytes
+	age: 0
+	date: Thu, 27 Feb 2025 12:24:55 GMT
+	via: 1.1 varnish
+	x-served-by: cache-fra-eddf8230085-FRA
+	x-cache: HIT
+	x-cache-hits: 0
+	x-timer: S1740659095.013448,VS0,VE104
+	vary: Accept-Encoding
+	x-fastly-request-id: ed6e7499013127d871f265627ed5f434e92d0331
+	content-length: 8285
+Note: Worked sh runs script directly, ./ needs x permission
+
+Exercise 8: Look up chmod
+Command: man chmod
+Outout: manual page diplayed
+Note: learned chmod changes permissions, +x adds execute ability
+
+Exercise 9: Make executable
+Commands:
+	chmod +x semester
+	./semester
+Output: HTTP/2 200
+server: GitHub.com
+content-type: text/html; charset=utf-8
+last-modified: Sat, 01 Feb 2025 18:13:13 GMT
+access-control-allow-origin: *
+etag: "679e6439-205d"
+expires: Wed, 26 Feb 2025 20:35:00 GMT
+cache-control: max-age=600
+x-proxy-cache: MISS
+x-github-request-id: 21A5:1080A:65956A:6677FF:67BF789C
+accept-ranges: bytes
+date: Thu, 27 Feb 2025 12:39:13 GMT
+via: 1.1 varnish
+age: 53
+x-served-by: cache-fra-eddf8230097-FRA
+x-cache: HIT
+x-cache-hits: 1
+x-timer: S1740659954.741468,VS0,VE3
+vary: Accept-Encoding
+x-fastly-request-id: 0bd00f277131bac2107ace4b9da44528111108c1
+content-length: 8285 
+Note: +x enables execution, #!/bin/sh specifies sh interpreter
+
+Exercise 10: Pipe and redirect
+Command:
+	./semester | grep -i "Last-Modified" > ~/last-modified.txt
+	cat ~/last-modified.txt
+Output: Last-modified: Sat, 01 Feb 2025 18:13:13 GM
+Note: Saved Last-modified to home-fixed case issue.
+
+Exercise 11: Read /sys
+Command: caat /sys/class/thermal/thermal_zone0/temp
+	 ls /sys/class/thermal/
+Output:
+	cat: /sys/class/thermal/thermal_zone0/temp: No such file or directory
+  	cooling_device0  cooling_device1  cooling_device2  cooling_device3  cooling_device4  cooling_device5  cooling_device6  cooling_device7
+Note: WSL2 lacks thermal_zone0/temp 

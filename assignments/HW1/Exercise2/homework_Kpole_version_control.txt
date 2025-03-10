@@ -1,0 +1,62 @@
+Version control exercies - Krishna Pole
+Exercise 1: Learn git basics
+Command : git --version
+Output: git version 2.34.1
+note: confirmed git 2.34.1 is installed ready to manage blobs, trees and commits.
+
+Exercise 2: Clone the Class Website
+Commands:
+  git clone https://github.com/missing-semester/missing-semester.git
+  cd missing-semester
+  git log --all --graph --decorate --oneline
+Output: * 8f3e5b8 (HEAD -> master, origin/master, origin/HEAD) Update README for 2020
+Noe: Cloned repo to assignments/missing-semester/; log visualizes commit DAG—shows latest snapshot.
+
+
+Exercise 3: Last modifier of README.me
+command: git log -1 README.md
+Output: commit f61bdc1d593a5261f4c1851b3e2c3dbb8e446632 (HEAD -> master, origin/master, origin/HEAD)
+Author: Anish Athalye <me@anishathalye.com>
+Date:   Sat Feb 1 10:12:19 2025 -0800
+
+
+Exercise 4: Commit Message for collections: in _config.yml
+Commands:
+  git blame _config.yml | grep "collections:"
+  git show a88b4eac
+Output: commit a88b4eac… "Redo lectures as a collection"
+Note: Anish Athalye added collections: on Jan 17, 2020—restructured lectures.
+
+
+Exercise 5: Remove a File from History
+Commands:
+  echo "sensitive data" > secret.txt
+  git add secret.txt
+  git commit -m "Add secret file"
+  git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch secret.txt' --prune-empty --tag-name-filter cat -- --all
+Output: 
+  git commit: [master e808dab] Add secret file  1 file changed, 1 insertion(+)
+  git filter-branch: Rewrite … Ref 'refs/heads/master' was rewritten
+Note: Added secret.txt, then removed it from history—filter-branch rewrites DAG.
+
+
+Exercise 6: Use git stash
+Commands:
+  echo "temp change" >> README.md
+  git stash
+  git log --all --oneline
+  git stash pop
+Output:
+  git stash: Saved working directory and index state WIP on master: e393824 Update CI status URLs
+  git log: d32e1c0 (refs/stash) WIP on master: e393824 Update CI status URLs…
+  git stash pop: Changes not staged … modified: README.md
+Note: Stashed README.md change, log shows stash entries, popped to restore—useful for pausing work.
+
+
+Exercise 7: Configure Alias and Global Ignore
+Commands:
+  git config --global alias.graph "log --all --graph --decorate --oneline"
+  echo ".DS_Store" > ~/.gitignore_global
+  git config --global core.excludesfile ~/.gitignore_global
+Output: git graph: * e393824 (HEAD -> master, origin/master, origin/HEAD) Update CI status URLs
+Note: Added graph alias for DAG view; ignored .DS_Store globally—customizes Git.
